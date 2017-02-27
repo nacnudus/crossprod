@@ -1,0 +1,7 @@
+docs
+data/harry-potter-sentiment
+data/rbloggers
+data/statsblogs
+data/temp
+content/post/*.html
+tags
