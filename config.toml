@@ -6,6 +6,7 @@ enableEmoji = false
 footnotereturnlinkcontents = "<sup>^</sup>"
 publishDir = "docs"
 relativeurls = true
+canonifyURLs = true
 
 # Enable comments by entering your Disqus shortname
 disqusShortname = "crossprod"
@@ -25,7 +26,7 @@ defaultContentLanguageInSubdir = false
   role = "Data Scientist"
   # organization = "Stanford University"
   # organization_url = ""
-  avatar = "portrait.jpg"
+  avatar = "../crossprod/img/portrait.jpg"
   # email = "example@example.com"
   # address = "Building 1 Room 1, Stanford University, California, 90210, USA"
   # office_hours = "Monday 10:00 to 13:00 or email for appointment"
