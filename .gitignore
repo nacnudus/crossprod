@@ -4,4 +4,5 @@ data/rbloggers
 data/statsblogs
 data/temp
 content/post/*.html
+content/post/*_files
 tags
