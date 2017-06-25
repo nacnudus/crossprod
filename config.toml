@@ -24,8 +24,7 @@ defaultContentLanguageInSubdir = false
 [params]
   name = "Duncan Garmonsway"
   role = "Data Scientist"
-  # organization = "Stanford University"
-  # organization_url = ""
+  organization = "Government Digital Service"
   avatar = "../crossprod/img/portrait.jpg"
   # email = "example@example.com"
   # address = "Building 1 Room 1, Stanford University, California, 90210, USA"

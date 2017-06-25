@@ -33,8 +33,19 @@ weight = 1
 # Biography
 
 My name is Duncan Garmonsway. I began doing data things in the New Zealand
-government, and now work for a big-six energy company in Glasgow. I write about
-R, data, and overcoming technical frustrations to meet analytical needs.
+government, then worked for a big-six energy company in Glasgow, and now create
+[registers](https://registers.cloudapps.digital/) for the UK Government Digital
+Service, part of the Cabinet Office.  I write about R, data, and overcoming
+technical frustrations to meet analytical needs.
+
+Try my R packages:
+
+* [tidyxl](https://nacnudus.github.io/tidyxl/) imports non-tabular Excel files,
+    including formatting.
+* [unpivotr](https://nacnudus.github.io/unpivotr/) tidies complex tables by
+    understanding relative positions.
+* [nzpullover](https://nacnudus.github.io/nzpullover/) is an up-to-date dataset
+    of New Zealand road offences
 
 Find me on [GitHub](https://github.com/nacnudus),
 [Twitter](https://twitter.com/nacnudus),
@@ -43,6 +54,5 @@ Find me on [GitHub](https://github.com/nacnudus),
 
 Subscribe with RSS.
 
-Two excellent blog-aggregators that I read are
-[R-Bloggers](https://www.r-bloggers.com/) and
-[StatsBlogs](http://www.statsblogs.com/).
+Excellent blog-aggregators that I read are [R-Weekly](https://rweekly.org/) and
+[R-Bloggers](https://www.r-bloggers.com/).
