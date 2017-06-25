@@ -1,4 +1,4 @@
-baseurl = "https://nacnudus.github.io/crossprod/"
+baseurl = "https://rbind.github.io/crossprod/"
 title = "Crossprod"
 copyright = "&copy; 2017 Duncan Garmonsway"
 theme = "hugo-academic"
