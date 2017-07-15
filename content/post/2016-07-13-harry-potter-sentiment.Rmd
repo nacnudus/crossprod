@@ -9,7 +9,7 @@ image_preview: "/harry-potter-sentiment.png"
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(collapse = TRUE)
+knitr::opts_chunk$set(collapse = TRUE, cache = TRUE)
 ```
 
 ```{r harry-potter-sentiment-packages, echo = FALSE}

@@ -8,7 +8,7 @@ summary: "Porting a SimPy tutorial to the R package Simmer"
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(collapse = TRUE)
+knitr::opts_chunk$set(collapse = TRUE, cache = TRUE)
 ```
 
 ***Simmer has undergone heavy development since this post was written.***

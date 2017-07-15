@@ -9,7 +9,7 @@ image_preview: "/rounding.png"
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(collapse = TRUE)
+knitr::opts_chunk$set(collapse = TRUE, cache = TRUE)
 ```
 
 ## round(0.5) == 0?  Eh?
@@ -17,8 +17,7 @@ knitr::opts_chunk$set(collapse = TRUE)
 A common source of confusion in R is rounding-to-even (example adapted from
 ?round):
 
-```{r rounding-confusion, echo = TRUE, cach = TRUE}
-x1 <- seq(-2, 4, by = .5)
+```{r rounding-confusion, echo = TRUE)
 matrix(c(x1, round(x1)), nrow = 2, byrow = TRUE) #-- IEEE rounding !
 ```
 

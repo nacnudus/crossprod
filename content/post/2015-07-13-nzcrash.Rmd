@@ -9,7 +9,7 @@ image_preview: "nzcrash.png"
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(collapse = TRUE)
+knitr::opts_chunk$set(collapse = TRUE, cache = TRUE)
 ```
 
 The [nzcrash](https://github.com/nacnudus/nzcrash) package redistributes crash

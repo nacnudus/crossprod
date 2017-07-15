@@ -9,7 +9,7 @@ image_preview: "/rbloggers.png"
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(collapse = TRUE)
+knitr::opts_chunk$set(collapse = TRUE, cache = TRUE)
 ```
 
 This post does three things:
