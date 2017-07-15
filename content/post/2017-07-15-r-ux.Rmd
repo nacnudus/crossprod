@@ -1,0 +1,70 @@
+---
+title: 'R-ux: User research videos for R packages'
+author: 'Duncan Garmonsway'
+date: '2017-07-06'
+slug: r-ux
+categories: ['R', 'r-ux']
+tags: ['R', 'r-ux']
+---
+
+Among the flurry of #rstats tweets during [useR2017](https://user2017.brussels/)
+was Gavin Simpson's unconfortably honest question:
+
+`r blogdown::shortcode("tweet", "882673963452612608")`
+
+But do we really want to know which is better?  Don't we want all of R to *keep
+getting better*?^[The conversation remained constructive, which shows the virtue
+of the R community -- the R vs Python flamewars can't be *our* fault -- but the
+more it focused on finding data, the less it considered actual user
+experience.].
+
+My employer, the [Government Digital Service](https://gds.blog.gov.uk/),
+believes good products require good [user
+research](https://userresearch.blog.gov.uk/).  The user research playback
+sessions are a highlight of the week. We get to watch how people interact with
+what we build, and use the findings to iterate towards better a user experience.
+
+> User research helps teams learn about users and create services that meet
+> their needs.
+>
+> Without it, you won’t know what problems you’re trying to solve, what to build
+> or if the service you create will work well for users.
+
+How can R developers do user research?  This is less of a problem if you are
+famous and are invited to teach courses about your packages.  Even if your
+package is outside the top 50, you might still get plenty of feedback via GitHub
+issues and StackOverflow questions.  But both these spheres of user interaction
+have bias.
+
+Put yourself in your user's shoes.
+
+* They might not be able to attend courses
+* They might not have the confidence to open a GitHub issue
+* Their experience might not be objective enough for StackOverflow
+* They might simply end up doing things a hard way that you didn't anticipate.
+
+What can you do? Encourage R users to screencast their experience.  As a user,
+you would
+
+1. Attempt a short task.
+2. Do the task, think aloud, be polite.
+3. Submit the screencast to the package authors.
+
+This is a much easier community contribution than blogging or speaking, because
+it doesn't matter if you don't finish the task.  Every screencast is a valid
+experience.
+
+Why it so good about a screencast?  Here are just three examples.
+
+* *You see how different users browse the documentation*.  Do they read it
+  through?  Do they miss the information they need, even if it's there?
+* *You discover how your package fits into a user's mental framework*.  Did they
+  look for a function to do something that you had implemented as an parameter
+  of a function?
+* *You see users failing to fail early*.  The classic 50-line script when one
+  command would do.
+
+Let's make this happen!  Sign up to the brand new [mailing
+list](r-ux@googlegroups.com) and introduce yourself.  It will take just a
+handful of people to do a case study, spread the word, and get this off the
+ground.
