@@ -1,0 +1,176 @@
+---
+title: Evil-ly delicious spreadsheet
+author: Duncan Garmonsway
+date: '2017-07-26'
+slug: evil-ly-delicious-spreadsheet
+categories: ['R', 'tidyxl']
+tags: ['R', 'tidyxl']
+---
+
+When Bob Rudis needs to import a spreadsheet, he doesn't use R, he uses Twitter.
+And when he uses Twitter, I use [tidyxl](https://nacnudus.github.io/tidyxl/).
+
+`r blogdown::shortcode("tweet", "890200287356620806")`
+
+I haven't blogged about [tidyxl](https://nacnudus.github.io/tidyxl/) before,
+only tweeted and
+[vignetted](https://nacnudus.github.io/unpivotr/articles/small-multiples.html),
+so to see what it can really do, follow those links.
+
+The first problem with the spreadsheet is that it lies.  When you
+[download](https://t.co/xkfPqROO9E) its file suffix is `xls`, suggesting that it
+is in the pre-2007 Excel binary format.  But open it in a text editor, and it
+turns out to be xml.
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<?mso-application  progid="Excel.Sheet" ?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet">
+  <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+    <Author>InstantAtlas™ Server</Author>
+  </DocumentProperties>
+  <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
+    <FirstVisibleSheet>0</FirstVisibleSheet>
+    <ActiveSheet>0</ActiveSheet>
+  </ExcelWorkbook>
+  <Styles>
+  ...
+```
+
+Isn't that the post-2007 `xlsx` Excel file format then?  No.  It's a thoroughly
+non-standard hack of it.  Instead of being several xml files in a folder
+structure, it's a single file.  Then, when you dig into the xml, it doesn't
+define the data in normal cells, but in unusual structure called a 'Table'.
+
+The upshot is that you can't open it with any tool other than Excel.  I tried
+all the usual suspects, [readxl](http://readxl.tidyverse.org/),
+[openxlsx](https://github.com/awalker89/openxlsx),
+[xlsx](https://cran.r-project.org/web/packages/xlsx/index.html),
+[XLConnect](https://cran.r-project.org/web/packages/XLConnect/index.html), even
+[Office
+Online](https://products.office.com/en-gb/office-online/documents-spreadsheets-presentations-office-online) from Microsoft itself.
+
+So the first step is to open it in real, desktop Excel and save it in the xlsx
+format.  The rest is comparatively easy.
+
+The next step with any ugly spreadsheet is to do as [David
+Robinson](http://varianceexplained.org/about/)
+[recommends](https://rpubs.com/dgrtwo/tidying-enron), and 'melt' it into
+one-cell-per-row, with three fields giving the row number, column number, and
+value of the cell.
+
+You have four options to melt it, because the spreadsheet is simple and all the
+cell values are strings.
+
+* Write your own code
+* Use David Robinson's [code](https://rpubs.com/dgrtwo/tidying-enron)
+* Use the `tidy_table()` function in my
+  [unpivotr](https://nacnudus.github.io/unpivotr/reference/tidy_table.html)
+  package
+* Use the `tidy_xlsx()` function in my
+  [tidyxl](https://nacnudus.github.io/tidyxl/reference/tidy_xlsx.html) package.
+
+[Tidyxl](https://nacnudus.github.io/tidyxl/reference/tidy_xlsx.html) really
+shines for spreadsheets with more diverse data values and formatting.
+[Unpivotr](https://nacnudus.github.io/unpivotr/reference/tidy_table.html) is
+great for [small
+multiples](https://nacnudus.github.io/unpivotr/articles/small-multiples.html),
+does the right thing when
+[melting](file:///home/nacnudus/R/unpivotr/docs/reference/tidy_table.html)
+tables with different column types, and handles really weird [HTML
+tables](file:///home/nacnudus/R/unpivotr/docs/articles/html.html).
+
+```{r, include = FALSE}
+library(tidyxl)
+library(tidyverse)
+library(stringr)
+library(here) # a wonderful package
+```
+
+```r
+library(tidyxl)
+library(tidyverse)
+library(stringr)
+library(here) # a wonderful package
+```
+
+```{r, echo = TRUE}
+file_path <- file.path(here(), "data", "dataView155_3.xlsx")
+
+# Option 4 (tidyxl)
+datasheet <-
+  tidy_xlsx(file_path)$data[["SVV Coverage Trend Data"]] %>%
+  select(row, col, character)
+
+# Option 3 (unpivotr)
+datasheet <-
+  readxl::read_excel(file_path, col_names = FALSE) %>%
+  unpivotr::tidy_table() %>%
+  select(row, col, character = chr)
+
+datasheet
+```
+
+Then the worksheet needs to be chopped up into its components: column headers,
+row headers, and data cells.  This is where 'melting' the cells pays off, by
+making filtering so easy.
+
+```{r, echo = TRUE}
+datacells <-
+  datasheet %>%
+  filter(row >= 4, col >= 2) %>%
+  rename(value = character)
+state_or_stat <-
+  datasheet %>%
+  filter(row >= 4, col == 1) %>%
+  select(row, state_or_stat = character)
+type <-
+  datasheet %>%
+  filter(row == 1, col >= 2, !is.na(character)) %>%
+  select(col, type = character)
+header <-
+  datasheet %>%
+  filter(row == 3, col >= 2) %>%
+  select(col, header = character)
+year <-
+  header %>%
+  filter(str_detect(header, "[0-9]{4}-[0-9]{2}")) %>%
+  rename(year = header)
+```
+
+The separated components look like these two examples.
+
+```{r, echo = TRUE}
+datacells
+header
+```
+
+Finally, join (literally) the components back together.  There is a bit more
+cleaning up to do, with standard tidyverse tools.
+
+```{r, echo = TRUE}
+output <-
+  datacells %>%
+  arrange(row, col) %>%
+  left_join(state_or_stat, by = "row") %>%
+  left_join(year, by = "col") %>%
+  left_join(header, by = "col") %>%
+  left_join(type, by = "col") %>%
+  mutate(header = str_replace(header,
+                              "[0-9]{4}-[0-9]{2}",
+                              "PERCENT VACCINATED"),
+         value = if_else(value %in% c("NA", "NaN", "NReq"), NA_character_, value)) %>%
+  fill(year, type) %>%
+  select(-row, -col) %>%
+  spread(header, value) %>%
+  mutate_all(~ parse_guess(.x)) %>%
+  arrange(state_or_stat, type, year)
+
+glimpse(output)
+```
+
+Someone really keen would join the `FOOTNOTES` column to the footnotes in the
+second sheet of the workbook, but that spreadsheet is entirely
+un-machine-readable, and has at least one chunk missing.
+
+> \* The percentage of children enrolled in kindergarten surveyed may be
