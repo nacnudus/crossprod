@@ -5,6 +5,7 @@ date: '2017-07-06'
 slug: r-ux
 categories: ['R', 'r-ux']
 tags: ['R', 'r-ux']
+summary: "User research for R package developers"
 ---
 
 Among the flurry of #rstats tweets during [useR2017](https://user2017.brussels/)

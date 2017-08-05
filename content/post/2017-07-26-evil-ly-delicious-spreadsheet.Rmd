@@ -5,6 +5,7 @@ date: '2017-07-26'
 slug: evil-ly-delicious-spreadsheet
 categories: ['R', 'tidyxl']
 tags: ['R', 'tidyxl']
+summary: "Import an ugly spreadsheet into R with tidyxl"
 ---
 
 When Bob Rudis needs to import a spreadsheet, he doesn't use R, he uses Twitter.
