@@ -14,14 +14,15 @@ And when he uses Twitter, I use [tidyxl](https://nacnudus.github.io/tidyxl/).
 `r blogdown::shortcode("tweet", "890200287356620806")`
 
 I haven't blogged about [tidyxl](https://nacnudus.github.io/tidyxl/) before,
-only tweeted and
+only tweeted,
 [vignetted](https://nacnudus.github.io/unpivotr/articles/small-multiples.html),
-so to see what it can really do, follow those links.
+and [pull-requested](http://www.openelections.net/), so to see what it can really
+do, follow those links.
 
 The first problem with the spreadsheet is that it lies.  When you
-[download](https://t.co/xkfPqROO9E) its file suffix is `xls`, suggesting that it
-is in the pre-2007 Excel binary format.  But open it in a text editor, and it
-turns out to be xml.
+[download](https://t.co/xkfPqROO9E) it, its file suffix is `xls`, suggesting
+that it is in the pre-2007 Excel binary format.  But open it in a text editor,
+and it turns out to be xml.
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -38,21 +39,25 @@ turns out to be xml.
   ...
 ```
 
-Isn't that the post-2007 `xlsx` Excel file format then?  No.  It's a thoroughly
+Isn't that the post-2007 `xlsx` Excel file format then?  No.  ~~It's a thoroughly
 non-standard hack of it.  Instead of being several xml files in a folder
 structure, it's a single file.  Then, when you dig into the xml, it doesn't
-define the data in normal cells, but in unusual structure called a 'Table'.
+define the data in normal cells, but in unusual structure called a 'Table'.~~
+[_edit: It's 'XML Spreadsheet 2003 (\*.xml)' format._]
 
-The upshot is that you can't open it with any tool other than Excel.  I tried
-all the usual suspects, [readxl](http://readxl.tidyverse.org/),
+The upshot is that you can't open it with any tool other than Excel [_edit:
+unless you rename it to something.xml and open it in Gnumeric or LibreOffice._]
+I tried all the usual suspects, [readxl](http://readxl.tidyverse.org/),
 [openxlsx](https://github.com/awalker89/openxlsx),
 [xlsx](https://cran.r-project.org/web/packages/xlsx/index.html),
 [XLConnect](https://cran.r-project.org/web/packages/XLConnect/index.html), even
 [Office
-Online](https://products.office.com/en-gb/office-online/documents-spreadsheets-presentations-office-online) from Microsoft itself.
+Online](https://products.office.com/en-gb/office-online/documents-spreadsheets-presentations-office-online)
+from Microsoft itself.
 
 So the first step is to open it in real, desktop Excel and save it in the xlsx
-format.  The rest is comparatively easy.
+format.  The rest is comparatively easy, even if it does have multi-row
+merged-cell and repeating column headers.
 
 The next step with any ugly spreadsheet is to do as [David
 Robinson](http://varianceexplained.org/about/)
@@ -175,3 +180,8 @@ second sheet of the workbook, but that spreadsheet is entirely
 un-machine-readable, and has at least one chunk missing.
 
 > \* The percentage of children enrolled in kindergarten surveyed may be
+
+To see a much tougher challenge, look at my [pull
+requests](https://github.com/openelections/openelections-data-id/pulls?q=is%3Apr+author%3Anacnudus)
+to the [openelections](http://www.openelections.net/) project.  I might blog
+about them one day.
